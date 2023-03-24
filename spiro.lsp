@@ -54,40 +54,40 @@
 )
 
 (defun radigran (r)
-  (putprop 'spiro 'r 'rgran)
+  (putprop 'spiro r 'rgran)
   (cercle
     (get 'spiro 'x)
     (get 'spiro 'y)
-    (get 'spiro 'radigran)
+    (get 'spiro 'rgran)
     (get 'spiro 'segments)
   )
 )
 
 (defun radipetit (r)
-  (putprop 'spiro 'r 'rpetit)
+  (putprop 'spiro r 'rpetit)
   (cercle
-    (get 'spiro 'x)
-    (get 'spiro 'y)
-    (get 'spiro 'radigran)
+    (* (sin (radians (get 'spiro 'inici))) (- (get 'spiro 'rgran) (get 'spiro 'rpetit))) 
+    (* (cos (radians (get 'spiro 'inici))) (- (get 'spiro 'rgran) (get 'spiro 'rpetit))) 
+    (get 'spiro 'rpetit)
     (get 'spiro 'segments)
   )
 )
 
 (defun punt (p)
-  (putprop 'spiro 'p 'punt)
+  (putprop 'spiro p 'punt)
 )
 
 (defun inici (a)
-  (putprop 'spiro 'a 'inici)
+  (putprop 'spiro a 'inici)
 )
 
 (defun escala (e)
-  (putprop 'spiro 'e 'escala)
+  (putprop 'spiro e 'escala)
 )
 
 (defun posicio (x-pos y-pos)
-  (putprop 'spiro 'x-pos 'x)
-  (putprop 'spiro 'y-pos 'y)
+  (putprop 'spiro x-pos 'x)
+  (putprop 'spiro y-pos 'y)
 )
 
 (defun cercle (x y radi segments)
