@@ -48,3 +48,30 @@
   (putprop 'spiro 0 'y)
   (putprop 'spiro 0.2 'pas)
 )
+
+(defun radigran (r)
+  (putprop 'spiro 'r 'rgran)
+  ; TODO draw circle
+)
+
+(defun radipetit (r)
+  (putprop 'spiro 'r 'rpetit)
+  ; TODO draw circle
+)
+
+(defun punt (p)
+  (putprop 'spiro 'p 'punt)
+)
+
+(defun inici (a)
+  (putprop 'spiro 'a 'inici)
+)
+
+(defun escala (e)
+  (putprop 'spiro 'e 'escala)
+)
+
+(defun posicio (x-pos y-pos)
+  (putprop 'spiro 'x-pos 'x)
+  (putprop 'spiro 'y-pos 'y)
+)
