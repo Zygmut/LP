@@ -47,6 +47,8 @@
   (putprop 'spiro 0 'x)
   (putprop 'spiro 0 'y)
   (putprop 'spiro 0.2 'pas)
+  (putprop 'spiro 320 'x-center)
+  (putprop 'spiro 187 'y-center)
 )
 
 (defun radigran (r)
@@ -74,4 +76,8 @@
 (defun posicio (x-pos y-pos)
   (putprop 'spiro 'x-pos 'x)
   (putprop 'spiro 'y-pos 'y)
+)
+
+(defun reduir (m n)
+
 )
