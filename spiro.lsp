@@ -83,7 +83,7 @@
 )
 
 (defun cercle (x y radi segments)
-  (move (+ x radi) y)
+  (mou (+ x radi) y)
   (cercle-segment x y radi (/ 360 segments) 0))
 
 (defun cercle-segment (x y radi angle-delta angle)
@@ -93,9 +93,13 @@
          (cercle-segment x y radi angle-delta (+ angle angle-delta)))
         (t t)))
 
+(defun mou (x y)
+  (move (realpart (round (+ (get 'spiro 'x-center) (* (get 'spiro 'escala) x))))
+  (realpart (round (+ (get 'spiro 'y-center) (* (get 'spiro 'escala) y))))))
+
 (defun pinta (x y)
-  (draw (realpart (round x))
-        (realpart (round y))))
+  (draw (realpart (round (+ (get 'spiro 'x-center) (* (get 'spiro 'escala) x))))
+        (realpart (round (+ (get 'spiro 'y-center) (* (get 'spiro 'escala) y))))))
 
 (defun radians (degrees)
   (/ (* degrees (* 2 pi)) 360))
