@@ -81,3 +81,22 @@
 (defun reduir (m n)
 
 )
+
+(defun cercle (x y radi segments)
+  (move (+ x radi) y)
+  (cercle-segment x y radi (/ 360 segments) 0))
+
+(defun cercle-segment (x y radi angle-delta angle)
+  (cond ((< angle 360)
+         (pinta (+ x (* radi (cos (radians (+ angle angle-delta)))))
+                (+ y (* radi (sin (radians (+ angle angle-delta))))))
+         (cercle-segment x y radi angle-delta (+ angle angle-delta)))
+        (t t)))
+
+(defun pinta (x y)
+  (draw (realpart (round x))
+        (realpart (round y))))
+
+(defun radians (degrees)
+  (/ (* degrees (* 2 pi)) 360))
+
