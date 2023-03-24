@@ -47,18 +47,30 @@
   (putprop 'spiro 0 'x)
   (putprop 'spiro 0 'y)
   (putprop 'spiro 0.2 'pas)
+  ; Aditional variables
+  (putprop 'spiro 100 'segments)
   (putprop 'spiro 320 'x-center)
   (putprop 'spiro 187 'y-center)
 )
 
 (defun radigran (r)
   (putprop 'spiro 'r 'rgran)
-  ; TODO draw circle
+  (cercle
+    (get 'spiro 'x)
+    (get 'spiro 'y)
+    (get 'spiro 'radigran)
+    (get 'spiro 'segments)
+  )
 )
 
 (defun radipetit (r)
   (putprop 'spiro 'r 'rpetit)
-  ; TODO draw circle
+  (cercle
+    (get 'spiro 'x)
+    (get 'spiro 'y)
+    (get 'spiro 'radigran)
+    (get 'spiro 'segments)
+  )
 )
 
 (defun punt (p)
@@ -76,10 +88,6 @@
 (defun posicio (x-pos y-pos)
   (putprop 'spiro 'x-pos 'x)
   (putprop 'spiro 'y-pos 'y)
-)
-
-(defun reduir (m n)
-
 )
 
 (defun cercle (x y radi segments)
@@ -104,3 +112,6 @@
 (defun radians (degrees)
   (/ (* degrees (* 2 pi)) 360))
 
+(defun reduir (m n)
+  (list (/ m (gcd m n)) (/ n (gcd m n)))
+)
