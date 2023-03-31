@@ -1,7 +1,6 @@
 (load "spiro.lsp")
 
-(guarda-informacio)
-
+(cls)
 (radigran 96)
 (inici 45)
 (vermell)

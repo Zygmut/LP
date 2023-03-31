@@ -99,7 +99,7 @@
   (cond ((< angle 360)
          (pinta (+ x (* radi (cos (radians (+ angle angle-delta)))))
                 (+ y (* radi (sin (radians (+ angle angle-delta))))))
-         (cercle-segment x y radi angle-delta (+ angle angle-delta)))
+         (cercle-step x y radi angle-delta (+ angle angle-delta)))
         (t t)))
 
 (defun mou (x y)
@@ -123,7 +123,7 @@
   (+
     (*
        (- rgran rpetit)
-       (cos (/ (* angle (get 'spiro 'rpetit )) rgran))
+       (cos (/ (* angle rpetit) rgran))
     )
     (*
       dist
@@ -136,7 +136,7 @@
   (-
     (*
        (- rgran rpetit)
-       (sin (/ (* angle (get 'spiro 'rpetit )) rgran))
+       (sin (/ (* angle rpetit) rgran))
     )
     (*
       dist
@@ -149,7 +149,7 @@
   (-
     (*
        (+ rgran rpetit)
-       (cos (/ (* angle (get 'spiro 'rpetit )) rgran))
+       (cos (/ (* angle rpetit) rgran))
     )
     (*
       dist
@@ -162,7 +162,7 @@
   (-
     (*
        (+ rgran rpetit)
-       (sin (/ (* angle (get 'spiro 'rpetit )) rgran))
+       (sin (/ (* angle rpetit) rgran))
     )
     (*
       dist
@@ -175,7 +175,8 @@
   (+ (* x (cos (radians angle))) (* y (sin (radians angle)))))
 
 (defun rotate-y(x y angle)
-  (- (* x (sin (radians angle))) (* y (cos (radians angle)))))
+  (+ (* (- x) (sin (radians angle))) (* y (cos (radians angle))))
+)
 
 (defun spirograph (pases rgran rpetit dist inc inici)
     (cond ((get 'spiro 'interior)
