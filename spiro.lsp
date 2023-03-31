@@ -66,8 +66,8 @@
 (defun radipetit (r)
   (putprop 'spiro r 'rpetit)
   (cercle
-    (* (sin (radians (get 'spiro 'inici))) (- (get 'spiro 'rgran) (get 'spiro 'rpetit))) 
-    (* (cos (radians (get 'spiro 'inici))) (- (get 'spiro 'rgran) (get 'spiro 'rpetit))) 
+    (* (sin (radians (get 'spiro 'inici))) (- (get 'spiro 'rgran) (get 'spiro 'rpetit)))
+    (* (cos (radians (get 'spiro 'inici))) (- (get 'spiro 'rgran) (get 'spiro 'rpetit)))
     (get 'spiro 'rpetit)
     (get 'spiro 'segments)
   )

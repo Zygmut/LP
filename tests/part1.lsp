@@ -9,3 +9,4 @@
 (inici 90)
 (blau)
 (radipetit 32)
+(negre)
