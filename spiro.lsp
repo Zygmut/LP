@@ -126,7 +126,7 @@
     )
     (*
       dist
-      (cos (* a (- 1 (/ rpetit rgran))))
+      (cos (* angle (- 1 (/ rpetit rgran))))
     )
   )
 )
@@ -139,7 +139,7 @@
     )
     (*
       dist
-      (sin (* a (- 1 (/ rpetit rgran))))
+      (sin (* angle (- 1 (/ rpetit rgran))))
       )
   )
 )
@@ -152,7 +152,7 @@
     )
     (*
       dist
-      (cos (* a (+ 1 (/ rpetit rgran))))
+      (cos (* angle (+ 1 (/ rpetit rgran))))
     )
   )
 )
@@ -165,7 +165,7 @@
     )
     (*
       dist
-      (sin (* a (+ 1 (/ rpetit rgran))))
+      (sin (* angle (+ 1 (/ rpetit rgran))))
     )
   )
 )
