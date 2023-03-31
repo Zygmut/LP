@@ -92,9 +92,9 @@
 
 (defun cercle (x y radi segments)
   (mou (+ x radi) y)
-  (cercle-segment x y radi (/ 360 segments) 0))
+  (cercle-step x y radi (/ 360 segments) 0))
 
-(defun cercle-segment (x y radi angle-delta angle)
+(defun cercle-step (x y radi angle-delta angle)
   (cond ((< angle 360)
          (pinta (+ x (* radi (cos (radians (+ angle angle-delta)))))
                 (+ y (* radi (sin (radians (+ angle angle-delta))))))
