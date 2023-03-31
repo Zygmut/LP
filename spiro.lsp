@@ -119,17 +119,49 @@
 ; Part 2
 
 (defun get-x-hipo (angle dist)
-  (+ (* (- (get 'spiro 'rgran) (get 'spiro 'rpetit)) (cos (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))) (* dist (cos (* a (- 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))))
+  (+ (*
+       (- (get 'spiro 'rgran) (get 'spiro 'rpetit))
+       (cos (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))
+    )
+    (*
+      dist
+      (cos (* a (- 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))
+    )
+  )
 )
 
 (defun get-y-hipo (angle dist)
-  (- (* (- (get 'spiro 'rgran) (get 'spiro 'rpetit)) (sin (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))) (* dist (sin (* a (- 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))))
+  (- (*
+       (- (get 'spiro 'rgran) (get 'spiro 'rpetit))
+       (sin (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))
+    )
+    (*
+      dist
+      (sin (* a (- 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))
+      )
+  )
 )
 
 (defun get-x-epi (angle dist)
-  (- (* (+ (get 'spiro 'rgran) (get 'spiro 'rpetit)) (cos (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))) (* dist (cos (* a (+ 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))))
+  (- (*
+       (+ (get 'spiro 'rgran) (get 'spiro 'rpetit))
+       (cos (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))
+    )
+    (*
+      dist
+      (cos (* a (+ 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))
+    )
+  )
 )
 
 (defun get-y-epi (angle dist)
-  (- (* (+ (get 'spiro 'rgran) (get 'spiro 'rpetit)) (sin (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))) (* dist (sin (* a (+ 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))))
+  (- (*
+       (+ (get 'spiro 'rgran) (get 'spiro 'rpetit))
+       (sin (/ (* angle (get 'spiro 'rpetit )) (get 'spiro 'rgran)))
+    )
+    (*
+      dist
+      (sin (* a (+ 1 (/ (get 'spiro 'rpetit) (get 'spiro 'rgran)))))
+    )
+  )
 )
