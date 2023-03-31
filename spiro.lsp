@@ -52,6 +52,7 @@
   (putprop 'spiro 320 'x-center)
   (putprop 'spiro 187 'y-center)
 )
+(guarda-informacio)
 
 (defun radigran (r)
   (putprop 'spiro r 'rgran)
@@ -167,5 +168,49 @@
       dist
       (sin (* angle (+ 1 (/ rpetit rgran))))
     )
+  )
+)
+
+(defun rotate-x(x y angle)
+  (+ (* x (cos (radians angle))) (* y (sin (radians angle)))))
+
+(defun rotate-y(x y angle)
+  (- (* x (sin (radians angle))) (* y (cos (radians angle)))))
+
+(defun spirograph (pases rgran rpetit dist inc inici)
+    (cond ((get 'spiro 'interior)
+            (set 'x (get-x-hipo pases dist rgran rpetit))
+            (set 'y (get-y-hipo pases dist rgran rpetit))
+            (mou (rotate-x x y inici) (rotate-y x y inici))
+            (spirograph-interior-step pases rgran rpetit dist inc inici)
+          )
+          (t
+            (set 'x (get-x-epi pases dist rgran rpetit))
+            (set 'y (get-y-epi pases dist rgran rpetit))
+            (pinta (rotate-x x y inici) (rotate-y x y inici))
+            (spirograph-exterior-step pases rgran rpetit dist inc inici)
+          )
+    )
+)
+
+(defun spirograph-interior-step (pases rgran rpetit dist inc inici)
+  (cond ((< pases 0) t)
+        (t
+          (set 'x (get-x-hipo pases dist rgran rpetit))
+          (set 'y (get-y-hipo pases dist rgran rpetit))
+          (pinta (rotate-x x y inici) (rotate-y x y inici))
+          (spirograph-interior-step (- pases inc) rgran rpetit dist inc inici)
+        )
+  )
+)
+
+(defun spirograph-exterior-step (pases rgran rpetit dist inc inici)
+  (cond ((< pases 0) t)
+        (t
+          (set 'x (get-x-epi pases dist rgran rpetit))
+          (set 'y (get-y-epi pases dist rgran rpetit))
+          (pinta (rotate-x x y inici) (rotate-y x y inici))
+          (spirograph-exterior-step (- pases inc) rgran rpetit dist inc inici)
+        )
   )
 )
