@@ -188,7 +188,7 @@
           (t
             (set 'x (get-x-epi pases dist rgran rpetit))
             (set 'y (get-y-epi pases dist rgran rpetit))
-            (pinta (rotate-x x y inici) (rotate-y x y inici))
+            (mou (rotate-x x y inici) (rotate-y x y inici))
             (spirograph-exterior-step pases rgran rpetit dist inc inici)
           )
     )
@@ -213,5 +213,18 @@
           (pinta (rotate-x x y inici) (rotate-y x y inici))
           (spirograph-exterior-step (- pases inc) rgran rpetit dist inc inici)
         )
+  )
+)
+
+(defun spiro (rgran rpetit p inc inici)
+  (set 'petit-info (print (find-if (lambda (row) (equal rpetit (car row))) (get 'spiro 'petits))))
+
+  (spirograph
+    (* 2 pi (cadr (reduir rgran rpetit)))
+    rgran
+    rpetit
+    (* p (/ (caddr petit-info) 2 (cadr petit-info)))
+    inc
+    inici
   )
 )
