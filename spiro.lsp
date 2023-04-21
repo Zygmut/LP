@@ -51,6 +51,7 @@
   (putprop 'spiro 100 'segments)
   (putprop 'spiro 320 'x-center)
   (putprop 'spiro 187 'y-center)
+  (putprop 'spiro -90 'angle-offset)
 )
 (guarda-informacio)
 
@@ -172,10 +173,13 @@
 )
 
 (defun rotate-x(x y angle)
-  (+ (* x (cos (radians angle))) (* y (sin (radians angle)))))
+  (set 'angle-abs (+ angle (get 'spiro 'angle-offset)))
+  (+ (* x (cos (radians angle-abs))) (* y (sin (radians angle-abs))))
+)
 
 (defun rotate-y(x y angle)
-  (+ (* (- x) (sin (radians angle))) (* y (cos (radians angle))))
+  (set 'angle-abs (+ angle (get 'spiro 'angle-offset)))
+  (+ (* (- x) (sin (radians angle-abs))) (* y (cos (radians angle-abs))))
 )
 
 (defun spirograph (pases rgran rpetit dist inc inici)
@@ -218,12 +222,15 @@
 
 (defun spiro (rgran rpetit p inc inici)
   (set 'petit-info (print (find-if (lambda (row) (equal rpetit (car row))) (get 'spiro 'petits))))
+  (set 'dents (car petit-info))
+  (set 'forats (cadr petit-info))
+  ; (set 'diametre (caddr petit-info))
 
   (spirograph
-    (* 2 pi (cadr (reduir rgran rpetit)))
+    (/ (* 2 pi (cadr (reduir rgran rpetit))) inc)
     rgran
     rpetit
-    (* p (/ (caddr petit-info) 2 (cadr petit-info)))
+   (* (+ 1 (- forats p)) (/ dents (+ 1 forats)))
     inc
     inici
   )
