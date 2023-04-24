@@ -246,3 +246,19 @@
     (get 'spiro 'inici)
   )
 )
+
+(defun roda-voltes (n)
+  (set 'petit-info (find-if (lambda (row) (equal (get 'spiro 'rpetit) (car row))) (get 'spiro 'petits)))
+  (set 'dents (car petit-info))
+  (set 'forats (cadr petit-info))
+
+  (spirograph
+    (/ (* 2 pi (- n 1)) (get 'spiro 'pas))
+    (get 'spiro 'rgran)
+    (get 'spiro 'rpetit)
+   (* (+ 1 (- forats (get 'spiro 'punt))) (/ dents (+ 1 forats)))
+    (get 'spiro 'pas)
+    (get 'spiro 'inici)
+  )
+
+)
