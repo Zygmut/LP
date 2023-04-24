@@ -276,3 +276,14 @@
     inici
   )
 )
+
+(defun spiro-list (l)
+    (spiro (nth 0 l) (nth 1 l) (nth 2 l) (nth 3 l) (nth 4 l))
+)
+
+(defun spiros (l)
+  (cond ((null (cdr l)) (spiro-list (car l)))
+        (t  (spiro-list (car l)) 
+             (spiros (cdr l)))
+  )
+)
