@@ -42,7 +42,7 @@
   (putprop 'spiro 32 'rpetit)
   (putprop 'spiro 3 'punt)
   (putprop 'spiro 0 'inici)
-  (putprop 'spiro 1 'escala)
+  (putprop 'spiro 1.5 'escala)
   (putprop 'spiro t 'interior)
   (putprop 'spiro 0 'x)
   (putprop 'spiro 0 'y)
@@ -260,5 +260,19 @@
     (get 'spiro 'pas)
     (get 'spiro 'inici)
   )
+)
 
+(defun spiro-voltes (voltes rgran rpetit p inc inici)
+  (set 'petit-info (find-if (lambda (row) (equal rpetit (car row))) (get 'spiro 'petits)))
+  (set 'dents (car petit-info))
+  (set 'forats (cadr petit-info))
+
+  (spirograph
+    (/ (* 2 pi (- voltes 1)) inc)
+    rgran
+    rpetit
+   (* (+ 1 (- forats p)) (/ dents (+ 1 forats)))
+    inc
+    inici
+  )
 )
