@@ -39,10 +39,10 @@
     )
     'petits)
   (putprop 'spiro 150 'rgran)
-  (putprop 'spiro 50 'rpetit)
+  (putprop 'spiro 32 'rpetit)
   (putprop 'spiro 3 'punt)
   (putprop 'spiro 0 'inici)
-  (putprop 'spiro 1.8 'escala)
+  (putprop 'spiro 1 'escala)
   (putprop 'spiro t 'interior)
   (putprop 'spiro 0 'x)
   (putprop 'spiro 0 'y)
@@ -221,10 +221,9 @@
 )
 
 (defun spiro (rgran rpetit p inc inici)
-  (set 'petit-info (print (find-if (lambda (row) (equal rpetit (car row))) (get 'spiro 'petits))))
+  (set 'petit-info (find-if (lambda (row) (equal rpetit (car row))) (get 'spiro 'petits)))
   (set 'dents (car petit-info))
   (set 'forats (cadr petit-info))
-  ; (set 'diametre (caddr petit-info))
 
   (spirograph
     (/ (* 2 pi (cadr (reduir rgran rpetit))) inc)
@@ -233,5 +232,17 @@
    (* (+ 1 (- forats p)) (/ dents (+ 1 forats)))
     inc
     inici
+  )
+)
+
+; Part 3
+
+(defun roda ()
+  (spiro
+    (get 'spiro 'rgran)
+    (get 'spiro 'rpetit)
+    (get 'spiro 'punt)
+    (get 'spiro 'pas)
+    (get 'spiro 'inici)
   )
 )
