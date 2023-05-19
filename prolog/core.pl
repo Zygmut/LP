@@ -94,5 +94,22 @@ writeRow([Val | List], X, Y, IncX) :-
     writeRow(List, X2, Y, IncX).
 
 
+% Ej3
+% [Color], int, int | [[Color]]
+ferNonograma(_, 0, _, []) :- !.
+ferNonograma(Colors, Rows, Cols, [Row | NonoRest]) :-
+    createRow(Colors, Cols, Row),
+    Rows2 is Rows - 1,
+    ferNonograma(Colors, Rows2, Cols, NonoRest).
 
+createRow(_, 0, []) :- !.
+createRow(Colors, Length, [Color | RowRest]) :-
+    getRandom(Colors, Color),
+    Length1 is Length - 1,
+    createRow(Colors, Length1, RowRest).
+
+getRandom(List, Elem) :-
+    length(List, Length),
+    random(0, Length, Index),
+    nth0(Index, List, Elem).
 
