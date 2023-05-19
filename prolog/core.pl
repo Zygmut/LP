@@ -1,5 +1,5 @@
 cls:-write('\e[2J'), gotoXY(0,0).
-gotoXY(X,Y):-write('\e['),write(X),write(";"),write(Y),write("H").
+gotoXY(X,Y):-write('\e['),write(Y),write(";"),write(X),write("H").
 
 colorsValids([negre,vermell,verd,groc,blau,lila,cel]).
 
