@@ -23,7 +23,6 @@ color(cel) :-
 color(blanc) :-
     write("\e[1;97m").
 
-
 % Ej 1
 % List => Void
 escriuNonograma([]).
@@ -52,7 +51,6 @@ writeRow([Val | List], X, Y, IncX) :-
     X2 is X + IncX,
     writeRow(List, X2, Y, IncX).
 
-
 % Ej3
 % [Color], int, int | [[Color]]
 ferNonograma(_, 0, _, []) :- !.
@@ -73,44 +71,49 @@ getRandom(List, Elem) :-
     nth0(Index, List, Elem).
 
 % Ej 4
-% T, [T] -> [T]
-esborrar(_, [], []).
-esborrar(X, [X|L], L).
-esborrar(X, [Y|L1], [Y|L2]) :-
-    esborrar(X, L1, L2).
+% T, [T] | [T]
+removeFirst(_, [], []).
+removeFirst(X, [X|L], L).
+removeFirst(X, [Y|L1], [Y|L2]) :-
+    removeFirst(X, L1, L2).
 
-% T, [T] -> int
-vegades(_, [], 0).
-vegades(X, [X | L], N) :-
-    vegades(X, L, NL),
+% T, [T] | int
+amount(_, [], 0) :- !.
+amount(X, [X | L], N) :-
+    amount(X, L, NL),
+    N is NL + 1,
+    !.
+amount(X, [_ | L], N) :-
+    amount(X, L, N).
+
+% T, [T] | int
+consecutive(_, [], 0) :- !.
+consecutive(X, [X | L], N) :-
+    consecutive(X, L, NL),
+    !,
     N is NL + 1.
-vegades(X, [_ | L], N) :-
-    vegades(X, L, N).
 
-% T, [T] -> int
-seguits(_, [], 0).
-seguits(X, [X | L], N) :-
-    seguits(X, L, NL),
-    N is NL + 1.
-seguits(_, [_ | _], 0).
+consecutive(_, _, 0).
 
+
+% [[Colors]] | [[[Desc]]]
 descriuNonograma([], []).
-descriuNonograma([X | L1],[Y | L2]):-
-    convertir(X, Y),
+descriuNonograma([X | L1], [Y | L2]):-
+    describe(X, Y),
     descriuNonograma(L1, L2).
 
-convertir([], []).
-convertir([X | L1],[[seguits, X, 1] | L2]) :-
-    vegades(X, [X | L1], 1),
+describe([], []).
+describe([X | L1], [[seguits, X, 1] | L2]) :-
+    amount(X, [X | L1], 1),
     !,
-    convertir(L1, L2).
-convertir([X | L1],[[seguits, X, N] | L2]) :-
-    vegades(X, [X | L1], N),
-    seguits(X, [X | L1], N),
+    describe(L1, L2).
+describe([X | L1],[[seguits, X, N] | L2]) :-
+    amount(X, [X | L1], N),
+    consecutive(X, [X | L1], N),
     !,
-    esborrar(X, [X | L1], L3),
-    convertir(L3, L2).
-convertir([X | L1], [[no_seguits, X, N] | L2]) :-
-    vegades(X, [X | L1], N),
-    esborrar(X, [X | L1], L3),
-    convertir(L3, L2).
+    removeFirst(X, [X | L1], L3),
+    describe(L3, L2).
+describe([X | L1], [[no_seguits, X, N] | L2]) :-
+    amount(X, [X | L1], N),
+    removeFirst(X, [X | L1], L3),
+    describe(L3, L2).
