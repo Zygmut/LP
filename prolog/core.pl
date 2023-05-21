@@ -95,14 +95,27 @@ consecutive(X, [X | L], N) :-
     N is NL + 1.
 consecutive(_, _, 0).
 
-% [[Colors]] | [[[Desc]]]
-% Make it not recursive and iterate in another method
-descriuNonograma([], []).
-descriuNonograma([X | L1], [Y | L2]):-
+descriuNonograma(Nonogram, Result):-
+    describeHint(Nonogram, NonTransposedResult),
+    transposeMatrix(Nonogram, TransposedNonogram),
+    describeHint(TransposedNonogram, TransposedResult),
+    append([NonTransposedResult], [TransposedResult], Result),
+    !.
+
+transposeMatrix([], []).
+transposeMatrix([[]|L], []):- transposeMatrix(L, []).
+transposeMatrix(M, [C|T]):-
+    transposeColumn(M, C, M1),
+    transposeMatrix(M1, T).
+
+transposeColumn([], [], []).
+transposeColumn([[X|L1]|M], [X|C], [L1|M1]):-
+    transposeColumn(M, C, M1).
+
+describeHint([], []).
+describeHint([X | L1], [Y | L2]) :-
     describe(X, Y),
-    % transpose matrix
-    % describe(y,x)
-    descriuNonograma(L1, L2).
+    describeHint(L1, L2).
 
 describe([], []) :- !.
 describe([X | L1], [[seguits, X, 1] | L2]) :-
