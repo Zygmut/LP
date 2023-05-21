@@ -73,18 +73,19 @@ getRandom(List, Elem) :-
 % Ej 4
 % T, [T] | [T]
 removeFirst(_, [], []).
-removeFirst(X, [X|L], L).
-removeFirst(X, [Y|L1], [Y|L2]) :-
+removeFirst(X, [X | L], L).
+removeFirst(X, [Y | L1], [Y | L2]) :-
     removeFirst(X, L1, L2).
 
 % T, [T] | int
-amount(_, [], 0) :- !.
+amount(_, [], 0).
 amount(X, [X | L], N) :-
     amount(X, L, NL),
     N is NL + 1,
     !.
 amount(X, [_ | L], N) :-
-    amount(X, L, N).
+    amount(X, L, N),
+    !.
 
 % T, [T] | int
 consecutive(_, [], 0) :- !.
@@ -92,28 +93,38 @@ consecutive(X, [X | L], N) :-
     consecutive(X, L, NL),
     !,
     N is NL + 1.
-
 consecutive(_, _, 0).
 
-
 % [[Colors]] | [[[Desc]]]
+% Make it not recursive and iterate in another method
 descriuNonograma([], []).
 descriuNonograma([X | L1], [Y | L2]):-
     describe(X, Y),
+    % transpose matrix
+    % describe(y,x)
     descriuNonograma(L1, L2).
 
-describe([], []).
+describe([], []) :- !.
 describe([X | L1], [[seguits, X, 1] | L2]) :-
-    amount(X, [X | L1], 1),
+    amount(X, [X | L1], N),
+    N = 1,
     !,
     describe(L1, L2).
-describe([X | L1],[[seguits, X, N] | L2]) :-
+describe([X | L1], [[seguits, X, N] | L2]) :-
     amount(X, [X | L1], N),
     consecutive(X, [X | L1], N),
-    !,
-    removeFirst(X, [X | L1], L3),
-    describe(L3, L2).
+    removeAll(X, [X | L1], L3),
+    describe(L3, L2),
+    !.
 describe([X | L1], [[no_seguits, X, N] | L2]) :-
     amount(X, [X | L1], N),
-    removeFirst(X, [X | L1], L3),
+    removeAll(X, [X | L1], L3),
     describe(L3, L2).
+
+removeAll(_, [], []).
+removeAll(X, [X | L], R) :-
+    removeAll(X, L, R),
+    !.
+removeAll(X, [Y | L], [Y | R]) :-
+    removeAll(X, L, R),
+    !.
