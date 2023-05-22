@@ -141,3 +141,31 @@ removeAll(X, [X | L], R) :-
 removeAll(X, [Y | L], [Y | R]) :-
     removeAll(X, L, R),
     !.
+
+
+% Ej 5
+
+mostraPistesHorizontals([], _, _, _, _).
+mostraPistesHorizontals([RowHints | Desc], Row, Col, IncY, IncX) :-
+    showHintRow(RowHints, Row, Col, IncX),
+    RowInc is Row + IncY,
+    !,
+    mostraPistesHorizontals(Desc, RowInc, Col, IncY, IncX).
+
+showHintRow([], _, _, _).
+showHintRow([Hint | Hints], Row, Col, IncX) :-
+    showHint(Hint, Col, Row),
+    ColInc is Col + IncX,
+    showHintRow(Hints, Row, ColInc, IncX).
+
+showHint([seguits, Color, 1], Col, Row) :-
+    writeAtColored(Col, Row, Color, 1).
+showHint([seguits, Color, N], Col, Row) :-
+    MinusCol is Col - 1,
+    writeAtColored(MinusCol, Row, Color, "<"),
+    writeAtColored(Col, Row, Color, N),
+    PlusCol is Col + 1,
+    writeAtColored(PlusCol, Row, Color, ">").
+showHint([no_seguits, Color, N], Col, Row) :-
+    writeAtColored(Col, Row, Color, N).
+
