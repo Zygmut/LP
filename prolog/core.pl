@@ -118,6 +118,8 @@ describeHint([X | L1], [Y | L2]) :-
     describeHint(L1, L2).
 
 describe([], []) :- !.
+describe([joker | L1], L) :-
+    describe(L1, L).
 describe([X | L1], [[seguits, X, 1] | L2]) :-
     amount(X, [X | L1], N),
     N = 1,
@@ -135,13 +137,12 @@ describe([X | L1], [[no_seguits, X, N] | L2]) :-
     describe(L3, L2).
 
 removeAll(_, [], []).
-removeAll(X, [X | L], R) :-
+removeAll(X, [X | L], [joker | R]) :-
     removeAll(X, L, R),
     !.
 removeAll(X, [Y | L], [Y | R]) :-
     removeAll(X, L, R),
     !.
-
 
 % Ej 5
 
