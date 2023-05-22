@@ -158,6 +158,19 @@ showHintRow([Hint | Hints], Row, Col, IncX) :-
     ColInc is Col + IncX,
     showHintRow(Hints, Row, ColInc, IncX).
 
+mostraPistesVerticals([], _, _, _, _).
+mostraPistesVerticals([ColHints | Desc], Row, Col, IncY, IncX) :-
+    showHintCol(ColHints, Row, Col, IncY),
+    ColInc is Col + IncX,
+    !,
+    mostraPistesVerticals(Desc, Row ,ColInc, IncY, IncX).
+
+showHintCol([], _, _, _).
+showHintCol([Hint | Hints], Row, Col, IncY) :-
+    showHint(Hint, Col, Row),
+    RowInc is Row + IncY,
+    showHintCol(Hints, RowInc, Col, IncY).
+
 showHint([seguits, Color, 1], Col, Row) :-
     writeAtColored(Col, Row, Color, 1).
 showHint([seguits, Color, N], Col, Row) :-
