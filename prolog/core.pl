@@ -72,7 +72,6 @@ getRandom(List, Elem) :-
 
 % Ej 4
 % T, [T] | [T]
-removeFirst(_, [], []).
 removeFirst(X, [X | L], L).
 removeFirst(X, [Y | L1], [Y | L2]) :-
     removeFirst(X, L1, L2).
@@ -183,3 +182,46 @@ showHint([seguits, Color, N], Col, Row) :-
 showHint([no_seguits, Color, N], Col, Row) :-
     writeAtColored(Col, Row, Color, N).
 
+% Ej 6
+
+resolNonograma([HoriontalDesc, VerticalDesc], Nono):-
+    solveRows(HoriontalDesc, Nono),
+    transposeMatrix(Nono, TransposedNono),
+    % IT breaks here :DDDDDDDDDD
+    checkRows(VerticalDesc, Nono).
+
+checkRows([], []).
+checkRows([RowDescription | RowDescriptions], [Row | Matrix]) :-
+    writeln(Row),
+    isSolution(Row, RowDescription),
+    !,
+    checkRows(RowDescriptions, Matrix).
+
+solveRows([], []).
+solveRows([RowDescription | RowDescpritions], [RowSolution | Nono]) :-
+    getColors(RowDescription, Colors),
+    permute(Colors, RowSolution),
+    writeln(RowSolution),
+    isSolution(RowSolution, RowDescription),
+    solveRows(RowDescpritions, Nono).
+
+getColors([],[]).
+getColors([[_, Color, Times] | Descriptions], ColorSolution) :-
+    addRepeated(Color, Times, Colors),
+    getColors(Descriptions, L),
+    append(Colors, L, ColorSolution).
+
+addRepeated(_, 0, []) :- !.
+addRepeated(Color, Times, [Color | List]) :-
+    Times1 is Times - 1,
+    addRepeated(Color, Times1, List),
+    !.
+
+permute([], []).
+permute(List, [Element | PermutedList]) :-
+    removeFirst(Element, List, L1),
+    permute(L1, PermutedList).
+
+isSolution(Row, Description) :-
+    describe(Row, RowDesc),
+    Description == RowDesc.
