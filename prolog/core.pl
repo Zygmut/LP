@@ -127,20 +127,20 @@ describe([X | L1], [[seguits, X, 1] | L2]) :-
 describe([X | L1], [[seguits, X, N] | L2]) :-
     amount(X, [X | L1], N),
     consecutive(X, [X | L1], N),
-    removeAll(X, [X | L1], L3),
+    replaceAll(X, [X | L1], L3),
     describe(L3, L2),
     !.
 describe([X | L1], [[no_seguits, X, N] | L2]) :-
     amount(X, [X | L1], N),
-    removeAll(X, [X | L1], L3),
+    replaceAll(X, [X | L1], L3),
     describe(L3, L2).
 
-removeAll(_, [], []).
-removeAll(X, [X | L], [joker | R]) :-
-    removeAll(X, L, R),
+replaceAll(_, [], []).
+replaceAll(X, [X | L], [joker | R]) :-
+    replaceAll(X, L, R),
     !.
-removeAll(X, [Y | L], [Y | R]) :-
-    removeAll(X, L, R),
+replaceAll(X, [Y | L], [Y | R]) :-
+    replaceAll(X, L, R),
     !.
 
 % Ej 5
@@ -188,11 +188,11 @@ resolNonograma([HoriontalDesc, VerticalDesc], Nono):-
     solveRows(HoriontalDesc, Nono),
     transposeMatrix(Nono, TransposedNono),
     % IT breaks here :DDDDDDDDDD
-    checkRows(VerticalDesc, Nono).
+    checkRows(VerticalDesc, TransposedNono),
+    !.
 
 checkRows([], []).
 checkRows([RowDescription | RowDescriptions], [Row | Matrix]) :-
-    writeln(Row),
     isSolution(Row, RowDescription),
     !,
     checkRows(RowDescriptions, Matrix).
@@ -201,7 +201,6 @@ solveRows([], []).
 solveRows([RowDescription | RowDescpritions], [RowSolution | Nono]) :-
     getColors(RowDescription, Colors),
     permute(Colors, RowSolution),
-    writeln(RowSolution),
     isSolution(RowSolution, RowDescription),
     solveRows(RowDescpritions, Nono).
 
@@ -224,4 +223,5 @@ permute(List, [Element | PermutedList]) :-
 
 isSolution(Row, Description) :-
     describe(Row, RowDesc),
+    !,
     Description == RowDesc.
