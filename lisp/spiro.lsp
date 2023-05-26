@@ -58,8 +58,8 @@
 (defun radigran (r)
   (putprop 'spiro r 'rgran)
   (cercle
-    (get 'spiro 'x)
-    (get 'spiro 'y)
+    0
+    0
     (get 'spiro 'rgran)
     (get 'spiro 'segments)
   )
