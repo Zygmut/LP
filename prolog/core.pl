@@ -246,3 +246,100 @@ permute([], []).
 permute(List, [Element | PermutedList]) :-
     removeFirst(Element, List, L1),
     permute(L1, PermutedList).
+
+% Testing
+nono(
+        [
+            [verd, lila, vermell, vermell],
+            [blau, verd, blau, blau],
+            [lila, blau, verd, verd],
+            [verd, blau, vermell, verd]
+        ]
+).
+
+ej1 :-
+    cls,
+    nono(Nono),
+    escriuNonograma(Nono),
+    !.
+
+ej2 :-
+    cls,
+    nono(Nono),
+    mostraNonograma(
+        Nono,
+        6,
+        15,
+        1,
+        3
+    ),
+    !.
+
+ej3 :-
+    cls,
+    ferNonograma(
+        [verd, blau, vermell],
+        3,
+        4,
+        Nono
+    ),
+    writeln(Nono),
+    !.
+
+ej4 :-
+    cls,
+    nono(Nono),
+    descriuNonograma(
+        Nono,
+        [H, V | _]
+    ),
+    writeln(H),
+    nl,
+    writeln(V),
+    !.
+
+ej5 :-
+    cls,
+    nono(Nono),
+    descriuNonograma(
+        Nono,
+        [H, V | _ ]
+    ),
+    mostraPistesVerticals(V, 2, 15, 1, 3),
+    mostraPistesHorizontals(H, 6, 5, 1, 3),
+    !.
+
+ej6 :-
+    cls,
+    nono(Nono),
+    descriuNonograma(
+        Nono,
+        Pistes
+    ),
+    resolNonograma(Pistes, Result),
+    writeln(Result),
+    !.
+
+display:-
+    cls,
+    nono(Nono),
+    descriuNonograma(
+        Nono,
+        [H, V | _ ]
+    ),
+    resolNonograma([
+        H,
+        V
+    ], Result),
+
+    mostraPistesVerticals(V, 2, 15, 1, 3),
+    mostraPistesHorizontals(H, 6, 5, 1, 3),
+    mostraNonograma(
+        Result,
+        6,
+        15,
+        1,
+        3
+    ),
+    !.
+
