@@ -1,15 +1,20 @@
+; Sets the color to black (RGB: 0, 0, 0)
 (defun negre ()
   (color 0 0 0))
 
+; Sets the color to red (RGB: 255, 0, 0)
 (defun vermell ()
   (color 255 0 0))
 
+; Sets the color to green (RGB: 0, 255, 0)
 (defun verd ()
   (color 0 255 0))
 
+; Sets the color to blue (RGB: 0, 0, 255)
 (defun blau ()
   (color 0 0 255))
 
+; Stores various properties related to the 'spiro' object, such as coordinates, sizes, and additional variables.
 (defun guarda-informacio ()
   (putprop
     'spiro
@@ -55,6 +60,7 @@
 )
 (guarda-informacio)
 
+; Draws a circle with the specified radius using the 'cercle' function, using the 'rgran' property of the 'spiro' object.
 (defun radigran (r)
   (putprop 'spiro r 'rgran)
   (cercle
@@ -65,6 +71,7 @@
   )
 )
 
+; Draws a circle with the specified radius using the 'cercle' function, using the 'rpetit' property of the 'spiro' object.
 (defun radipetit (r)
   (putprop 'spiro r 'rpetit)
   (cercle
@@ -75,32 +82,39 @@
   )
 )
 
+; Sets the 'punt' property of the 'spiro' object to the provided value.
 (defun punt (p)
   (putprop 'spiro p 'punt)
 )
 
+; Sets the 'inici' property of the 'spiro' object to the provided value.
 (defun inici (a)
   (putprop 'spiro a 'inici)
 )
 
+; Sets the 'escala' property of the 'spiro' object to the provided value.
 (defun escala (e)
   (putprop 'spiro e 'escala)
 )
 
+; Sets the 'x' and 'y' coordinates of the 'spiro' object to the provided values.
 (defun posicio (x-pos y-pos)
   (putprop 'spiro x-pos 'x)
   (putprop 'spiro y-pos 'y)
 )
 
+; Updates the 'x' and 'y' coordinates of the 'spiro' object by adding the provided offsets to the current coordinates.
 (defun posicio-rel (x-off y-off)
   (putprop 'spiro (+ x-off (get 'spiro 'x)) 'x)
   (putprop 'spiro (+ y-off (get 'spiro 'y)) 'y)
 )
 
+; Draws a circle with the specified center coordinates, radius, and number of segments using the 'pinta' function.
 (defun cercle (x y radi segments)
   (mou (+ x radi) y)
   (cercle-step x y radi (/ 360 segments) 0))
 
+; Recursive helper function for drawing a circle with the specified center coordinates, radius, angle increment, and current angle using the 'pinta' function.
 (defun cercle-step (x y radi angle-delta angle)
   (cond ((< angle 360)
          (pinta (+ x (* radi (cos (radians (+ angle angle-delta)))))
@@ -108,23 +122,28 @@
          (cercle-step x y radi angle-delta (+ angle angle-delta)))
         (t t)))
 
+; Moves the 'spiro' object to the specified coordinates by updating the 'x' and 'y' properties.
 (defun mou (x y)
   (move (realpart (round (+ (get 'spiro 'x) (* (get 'spiro 'escala) x))))
   (realpart (round (+ (get 'spiro 'y) (* (get 'spiro 'escala) y))))))
 
+; Draws a point at the specified coordinates by updating the 'x' and 'y' properties.
 (defun pinta (x y)
   (draw (realpart (round (+ (get 'spiro 'x) (* (get 'spiro 'escala) x))))
         (realpart (round (+ (get 'spiro 'y) (* (get 'spiro 'escala) y))))))
 
+; Converts the provided angle in degrees to radians.
 (defun radians (degrees)
   (/ (* degrees (* 2 pi)) 360))
 
+; Reduces the provided fraction by finding the greatest common divisor (GCD) and dividing both numerator and denominator.
 (defun reduir (m n)
   (list (/ m (gcd m n)) (/ n (gcd m n)))
 )
 
 ; Part 2
 
+; Calculates the x-coordinate of a point on a hypocycloid using the provided angle, distance, and radii.
 (defun get-x-hipo (angle dist rgran rpetit)
   (+
     (*
@@ -138,6 +157,7 @@
   )
 )
 
+; Calculates the y-coordinate of a point on a hypocycloid using the provided angle, distance, and radii.
 (defun get-y-hipo (angle dist rgran rpetit)
   (-
     (*
@@ -151,6 +171,7 @@
   )
 )
 
+; Calculates the x-coordinate of a point on an epicycloid using the provided angle, distance, and radii.
 (defun get-x-epi (angle dist rgran rpetit)
   (-
     (*
@@ -164,6 +185,7 @@
   )
 )
 
+; Calculates the y-coordinate of a point on an epicycloid using the provided angle, distance, and radii.
 (defun get-y-epi (angle dist rgran rpetit)
   (-
     (*
@@ -177,16 +199,19 @@
   )
 )
 
+; Rotates the coordinates (x, y) around the origin by the specified angle.
 (defun rotate-x(x y angle)
   (set 'angle-abs (+ angle (get 'spiro 'angle-offset)))
   (+ (* x (cos (radians angle-abs))) (* y (sin (radians angle-abs))))
 )
 
+; Rotates the coordinates (x, y) around the origin by the specified angle.
 (defun rotate-y(x y angle)
   (set 'angle-abs (+ angle (get 'spiro 'angle-offset)))
   (+ (* (- x) (sin (radians angle-abs))) (* y (cos (radians angle-abs))))
 )
 
+; Draws a spirograph pattern using the specified parameters, such as radii, distance, increment, and initial angle.
 (defun spirograph (pases rgran rpetit dist inc inici)
     (cond ((get 'spiro 'interior)
             (set 'x (get-x-hipo pases dist rgran rpetit))
@@ -203,6 +228,7 @@
     )
 )
 
+; Recursive helper function for drawing a spirograph pattern on the interior using the specified parameters.
 (defun spirograph-interior-step (pases rgran rpetit dist inc inici)
   (cond ((< pases 0) t)
         (t
@@ -214,6 +240,7 @@
   )
 )
 
+; Recursive helper function for drawing a spirograph pattern on the exterior using the specified parameters.
 (defun spirograph-exterior-step (pases rgran rpetit dist inc inici)
   (cond ((< pases 0) t)
         (t
@@ -225,6 +252,7 @@
   )
 )
 
+; Draws a spirograph pattern using the specified radii, point, increment, and initial angle.
 (defun spiro (rgran rpetit p inc inici)
   (set 'petit-info (find-if (lambda (row) (equal rpetit (car row))) (get 'spiro 'petits)))
   (set 'dents (car petit-info))
@@ -242,6 +270,7 @@
 
 ; Part 3
 
+; Draws a spirograph pattern using the current properties of the 'spiro' object.
 (defun roda ()
   (spiro
     (get 'spiro 'rgran)
@@ -252,6 +281,7 @@
   )
 )
 
+; Draws a spirograph pattern for the specified number of revolutions using the current properties of the 'spiro' object.
 (defun roda-voltes (n)
   (set 'petit-info (find-if (lambda (row) (equal (get 'spiro 'rpetit) (car row))) (get 'spiro 'petits)))
   (set 'dents (car petit-info))
@@ -267,6 +297,7 @@
   )
 )
 
+; Draws a spirograph pattern for the specified number of revolutions using the provided radii, point, increment, and initial angle.
 (defun spiro-voltes (voltes rgran rpetit p inc inici)
   (set 'petit-info (find-if (lambda (row) (equal rpetit (car row))) (get 'spiro 'petits)))
   (set 'dents (car petit-info))
@@ -282,9 +313,10 @@
   )
 )
 
+; Draws multiple spirograph patterns based on the list of parameter sets.
 (defun spiros (l)
   (cond ((null (cdr l)) (apply 'spiro (car l)))
-        (t  (apply 'spiro (car l)) 
+        (t  (apply 'spiro (car l))
              (spiros (cdr l)))
   )
 )
