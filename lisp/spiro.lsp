@@ -544,3 +544,75 @@
     (94 48 15 0.5 201)
     (94 24 8 0.5 260)))
 )
+
+; Test suite
+
+(defun test_1 ()
+  (cls)
+  (radigran 96)
+  (inici 45)
+  (vermell)
+  (radipetit 32)
+  (inici 90)
+  (blau)
+  (radipetit 32)
+  (negre)
+)
+
+(defun test_2_1 ()
+  (cls)
+  (spirograph 50 105 40 25 0.5 0)
+)
+
+(defun test_2_2 ()
+  (cls)
+  (spirograph 150 105 40 25 0.5 0)
+)
+
+(defun test_2_3 ()
+  (cls)
+  (spiro 105 40 1 0.2 0)
+)
+
+(defun test_2_4 ()
+  (cls)
+  (spiro 105 40 7 0.2 0)
+)
+
+(defun test_3_1 ()
+  (cls)
+  
+  (putprop 'spiro 1.5 'escala)
+  (putprop 'spiro 72 'rpetit)
+  (putprop 'spiro 105 'rgran)
+  (putprop 'spiro 0.5 'pas)
+  (putprop 'spiro t 'interior)
+  (putprop 'spiro 0 'inici)
+  
+  (roda)
+)
+
+(defun test_3_2 ()
+  (cls)
+  (putprop 'spiro 1.5 'escala)
+  (putprop 'spiro 72 'rpetit)
+  (putprop 'spiro 105 'rgran)
+  (putprop 'spiro 0.5 'pas)
+  (putprop 'spiro t 'interior)
+  (putprop 'spiro 0 'inici)
+
+  (roda-voltes 5)
+)
+
+(defun test_3_3 ()
+  (cls)
+  (spiro-voltes 5 105 72 2 0.5 0)
+)
+
+(defun test_3_4 ()
+  (cls)
+  (spiros '((105 63 7 0.5 0)
+            (105 63 9 0.5 0)
+            (105 63 11 0.5 0)))
+
+)
